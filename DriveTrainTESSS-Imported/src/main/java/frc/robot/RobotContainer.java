@@ -39,7 +39,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    driveTrain.setDefaultCommand(new TeleopDrive(() -> m_driverController.getLeftY(),
-                                                 () -> m_driverController.getRightX()));
+    driveTrain.setDefaultCommand(new TeleopDrive(() ->m_driverController.getLeftY(),
+                                                 ()-> m_driverController.getRightX()));
   }
 }

@@ -17,15 +17,18 @@ public class TESSSDriveTrain extends SubsystemBase {
   private Spark DRIVE_MOTOR_RT_BACK;
   private Spark DRIVE_MOTOR_RT_FRONT;
 
-  public final double DEADBAND = 0.04;
+  private final double DEADBAND = 0.04;
 
-  private final int SPARK_LT_BACK_ID = 1;
-  private final int SPARK_LT_FRONT_ID = 2;
-  private final int SPARK_RT_BACK_ID = 5;
-  private final int SPARK_RT_FRONT_ID = 6; 
+  // Current limit would normally be declared here as a variable,
+  // but it is not a feature on TESSS due to motor control type being PWM not CAN
 
-  public MotorControllerGroup RightMotors;
-  public MotorControllerGroup LeftMotors;
+  private final int SPARK_LT_BACK_ID = 2;
+  private final int SPARK_LT_FRONT_ID = 1;
+  private final int SPARK_RT_BACK_ID = 6;
+  private final int SPARK_RT_FRONT_ID = 5; 
+
+  private MotorControllerGroup LeftMotors;
+  private MotorControllerGroup RightMotors;
 
   public DifferentialDrive CatzDrivetrainSubsystem;
 
@@ -34,20 +37,15 @@ public class TESSSDriveTrain extends SubsystemBase {
     DRIVE_MOTOR_LT_FRONT = new Spark(SPARK_LT_FRONT_ID);
     DRIVE_MOTOR_RT_BACK = new Spark(SPARK_RT_BACK_ID);
     DRIVE_MOTOR_RT_FRONT = new Spark(SPARK_RT_FRONT_ID);
-    
+
     DRIVE_MOTOR_LT_FRONT.setInverted(true);
     DRIVE_MOTOR_LT_BACK.setInverted(true);
-    
+
     LeftMotors = new MotorControllerGroup(DRIVE_MOTOR_LT_BACK, DRIVE_MOTOR_LT_FRONT);
     RightMotors = new MotorControllerGroup(DRIVE_MOTOR_RT_BACK, DRIVE_MOTOR_RT_FRONT);
-    
+
     CatzDrivetrainSubsystem = new DifferentialDrive(LeftMotors, RightMotors);
     CatzDrivetrainSubsystem.setDeadband(DEADBAND);
-
-    /*
-    * Current limit would normally be set here, but it is not a feature
-    * on TESSS due to motor controller type being PWM instead of CAN
-    */
   }
 
   @Override
