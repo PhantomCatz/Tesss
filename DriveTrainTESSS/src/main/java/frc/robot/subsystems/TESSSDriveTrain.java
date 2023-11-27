@@ -10,6 +10,11 @@ import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TESSSDriveTrain extends SubsystemBase {
+  /*
+   * Declaring motor controllers, PWM motor port ids, and motor controller groups
+   * for arcade drive using WPILIB DifferentialDrive class
+   */
+  
   private static TESSSDriveTrain instance;
 
   private Spark DRIVE_MOTOR_LT_BACK;
@@ -29,6 +34,11 @@ public class TESSSDriveTrain extends SubsystemBase {
 
   public DifferentialDrive CatzDrivetrainSubsystem;
 
+  /*
+   * Instantiating the motors, motorcontroller groups, and the differentialdrive
+   * Also setting deadband
+   */
+
   private TESSSDriveTrain() {
     DRIVE_MOTOR_LT_BACK = new Spark(SPARK_LT_BACK_ID);
     DRIVE_MOTOR_LT_FRONT = new Spark(SPARK_LT_FRONT_ID);
@@ -46,7 +56,7 @@ public class TESSSDriveTrain extends SubsystemBase {
 
     /*
     * Current limit would normally be set here, but it is not a feature
-    * on TESSS due to motor controller type being PWM instead of CAN
+    * on TESSS due to the motor controller type being PWM instead of CAN.
     */
   }
 
@@ -54,6 +64,12 @@ public class TESSSDriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  /*
+   * Method is made to ensure that there can only be one instance of the drivetrain.
+   * This prevents the issue of having multiple instances of the drivetrain that are
+   * trying to perform different actions at the same time.
+   */
 
   public static TESSSDriveTrain getInstance()
   {
