@@ -38,14 +38,8 @@ public class RobotContainer {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
-
-  /*
-   * Y axis of left joystick and X axis of right joystick are used as values for motor power
-   * in the arcade drive (in the TeleopDrive command)
-   */
-
   private void configureBindings() {
-    driveTrain.setDefaultCommand(new TeleopDrive(() -> m_driverController.getLeftY(),
-                                                 () -> m_driverController.getRightX()));
+    driveTrain.setDefaultCommand(new TeleopDrive(() ->m_driverController.getLeftY(),
+                                                 ()-> m_driverController.getRightX()));
   }
 }
