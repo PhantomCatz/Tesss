@@ -40,12 +40,14 @@ public class RobotContainer {
    */
 
   /*
-   * Y axis of left joystick and X axis of right joystick are used as values for motor power
-   * in the arcade drive (in the TeleopDrive command)
+   * Y axis of left joystick and X axis of right joystick are used as values for motor power in
+   * calculating speed and rotational speed as parameters of the arcadeDrive from the WPILib
+   * DifferentialDrive class
+   * These joystick values are used as parameters in the TeleopDrive command
    */
 
   private void configureBindings() {
-    driveTrain.setDefaultCommand(new TeleopDrive(() -> m_driverController.getLeftY(),
-                                                 () -> m_driverController.getRightX()));
+    driveTrain.setDefaultCommand(new TeleopDrive(() ->m_driverController.getLeftY(),
+                                                 ()-> m_driverController.getRightX()));
   }
 }
