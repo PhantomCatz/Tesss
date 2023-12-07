@@ -47,7 +47,7 @@ public class RobotContainer {
    */
 
   private void configureBindings() {
-    driveTrain.setDefaultCommand(new TeleopDrive(() ->m_driverController.getLeftY(),
-                                                 ()-> m_driverController.getRightX()));
+    driveTrain.setDefaultCommand(new TeleopDrive(() -> m_driverController.getLeftY(),
+                                                 () -> m_driverController.getRightX()));
   }
 }
