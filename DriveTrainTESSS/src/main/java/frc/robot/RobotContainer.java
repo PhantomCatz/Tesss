@@ -6,7 +6,9 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.TeleopGrabber;
 import frc.robot.subsystems.TESSSDriveTrain;
+import frc.robot.subsystems.CatzGrabber;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -19,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private static TESSSDriveTrain driveTrain = TESSSDriveTrain.getInstance();
-
+  private static CatzGrabber grabber = CatzGrabber.getInstance();
   private CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.XBOX_DRV_PORT);
 
@@ -47,7 +49,9 @@ public class RobotContainer {
    */
 
   private void configureBindings() {
-    driveTrain.setDefaultCommand(new TeleopDrive(() -> m_driverController.getLeftY(),
-                                                 () -> m_driverController.getRightX()));
+    // driveTrain.setDefaultCommand(new TeleopDrive(() -> m_driverController.getLeftY(),
+    //                                             () -> m_driverController.getRightX()));
+    grabber.setDefaultCommand(new TeleopGrabber(() -> m_driverController.a().getAsBoolean(),
+                                                () -> m_driverController.b().getAsBoolean()));
   }
 }
