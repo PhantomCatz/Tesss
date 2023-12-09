@@ -30,7 +30,7 @@ public class TESSSDriveTrain extends SubsystemBase {
    */
 
   private final int SPARK_LT_BACK_ID = 2;
-  private final int SPARK_LT_FRONT_ID = 1;
+  private final int SPARK_LT_FRONT_ID = 3;
   private final int SPARK_RT_BACK_ID = 6;
   private final int SPARK_RT_FRONT_ID = 5; 
 

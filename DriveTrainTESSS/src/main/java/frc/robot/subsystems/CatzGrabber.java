@@ -9,11 +9,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class CatzGrabber extends SubsystemBase {
   private static CatzGrabber instance;
@@ -21,9 +18,9 @@ public class CatzGrabber extends SubsystemBase {
   private final int SPARK_GRABBER_ID = 3;
 
   public final PneumaticsModuleType PCM_TYPE = PneumaticsModuleType.CTREPCM;
-  private final int GRABBER_PCM_PORT  = 1;
+  private final int GRABBER_PCM_PORT  = 0;
 
-  private final double DEPLOY_POWER = 0.2;
+  private final double DEPLOY_POWER = 0.9;
   private final double DEPLOY_TIME = 0.5;
 
   private final double STOW_POWER = -0.4;
@@ -33,36 +30,45 @@ public class CatzGrabber extends SubsystemBase {
   private Solenoid grabberSolenoid;
   private final CANSparkMax sparkGrabber;
 
+
   public CatzGrabber() {
     grabberSolenoid = new Solenoid(PCM_TYPE, GRABBER_PCM_PORT);
 
     sparkGrabber = new CANSparkMax(SPARK_GRABBER_ID, MotorType.kBrushed);
+    stowGrabber();
   }
-
-  public void deployGrabber(Boolean aButtonSupplier) {
-    /*
-     * If press again then it won't perform the action again
-     */
+/*
+  public void toggleGrabber() {
+    deployGrabber();
+    System.out.println("Toggle Grabber");
     if (isDeployed == false) {
+      deployGrabber();
+    } 
+    else {
+      //stowGrabber();
+    }
+  }*/
+  public void deployGrabber() {
+    
+    if(isDeployed == false) {
+      System.out.println("Deploy Grabber");
       sparkGrabber.set(DEPLOY_POWER);
-      // Commands.waitSeconds(0.5);
+      Commands.waitSeconds(0.5);
       sparkGrabber.set(0);
       grabberSolenoid.set(true);
-      System.out.println("g");
+      isDeployed = true;
     }
-    isDeployed = true;
   }
-
-  public void stowGrabber(Boolean bButtonSupplier) {
-    if (isDeployed == true) {
+  public void stowGrabber() {
+    if(isDeployed == true) {
+      System.out.println("Stow Grabber");
       grabberSolenoid.set(false);
-      // Commands.waitSeconds(0.5);
       sparkGrabber.set(STOW_POWER);
+      Commands.waitSeconds(0.5);
       sparkGrabber.set(0);
+      isDeployed = false;
     }
-    isDeployed = false;
   }
-
   public static CatzGrabber getInstance()
   {
     if(instance == null)

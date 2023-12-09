@@ -47,13 +47,14 @@ public class TeleopDrive extends CommandBase {
   public void execute() {
     double leftStickPower = leftStickYSupplier.get();
     double rightStickPower = rightStickXSupplier.get();
-
     driveTrain.CatzDrivetrainSubsystem.arcadeDrive(leftStickPower, rightStickPower);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+
+  }
 
   // Returns true when the command should end.
   @Override

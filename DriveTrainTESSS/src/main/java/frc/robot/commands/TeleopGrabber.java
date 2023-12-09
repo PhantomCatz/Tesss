@@ -7,34 +7,34 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.CatzGrabber;
 
 public class TeleopGrabber extends CommandBase {
   public CatzGrabber grabber = CatzGrabber.getInstance();
+  Supplier<Boolean> abuttonSupplier;
+  Supplier<Boolean> bbuttonSupplier;
 
-  Supplier<Boolean> aButtonSupplier;
-  Supplier<Boolean> bButtonSupplier;
-
-  public TeleopGrabber(Supplier<Boolean> aButtonSupplier, Supplier<Boolean> bButtonSupplier) {
-    this.aButtonSupplier = aButtonSupplier;
-    this.bButtonSupplier = bButtonSupplier;
-    
+  public TeleopGrabber(Supplier<Boolean> abuttonSupplier , Supplier<Boolean> bbuttonSupplier) {
+    this.abuttonSupplier = abuttonSupplier;
+    this.bbuttonSupplier = bbuttonSupplier;
     addRequirements(grabber);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Boolean aTrigger = aButtonSupplier.get();
-    Boolean bTrigger = bButtonSupplier.get();
+    if(abuttonSupplier.get() == true) {
+      grabber.deployGrabber();
+    }
+    else if(bbuttonSupplier.get() == true) {
+      grabber.stowGrabber();
+    }
 
-    grabber.deployGrabber(aTrigger);
-    grabber.stowGrabber(bTrigger);
   }
 
   // Called once the command ends or is interrupted.
